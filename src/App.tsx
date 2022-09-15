@@ -1,39 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import '@elastic/eui/dist/eui_theme_light.css';
 
 import { EuiButton, EuiProvider, EuiText } from '@elastic/eui';
+import { MainApp } from './components/MainApp';
 
-const App = () => {
+export const App: React.FC<PropsType> = () => {
+  const flag: boolean = false
   return (
-    <EuiProvider colorMode="light">
-     
-      <EuiText>
-        <h1>This is Heading One</h1>
-        <p>Hello man, i'm glad to seem you</p>
-      </EuiText>
-    <div className="App">
-      
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and safffve to reload.
-        </p>
-        
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+    <>
+      {flag ? (
+        <EuiProvider colorMode="light">
+          <EuiText>
+            <h1>This is Heading One</h1>
+            <p>Hello man, i'm glad to seem you</p>
+          </EuiText>
           <EuiButton>Кнопка</EuiButton>
-          Learn React
-        </a>
-      </header>
-    </div>
-    </EuiProvider>
+        </EuiProvider>) : (<MainApp/>)}
+    </>
   );
 }
 
-export default App;
+type PropsType = {}
