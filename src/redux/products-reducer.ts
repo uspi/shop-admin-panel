@@ -1,5 +1,6 @@
+import { productsAPI } from '../api/products-api'
 import { ProductType } from '../types/types'
-import { InferActionsTypes } from './store'
+import { CommonThunkType, InferActionsTypes } from './store'
 
 // STATE STRUCTURE
 const initialState = {
@@ -46,7 +47,24 @@ export const actions = {
 }
 
 // THUNKS
-// export const 
+export const getProducts = (
+    pageSize: number = 30
+): CommonThunkType<ActionsTypes> => {
+    return async (dispatch, getState) => {
+        // reset error status
+        dispatch(actions.setError(null))
+
+        let data = await productsAPI.getProductsList()
+
+        // TODO: check for error
+
+        if (data) {
+            dispatch(actions.setProducts(data))
+        }
+
+
+    }
+}
 
 
 

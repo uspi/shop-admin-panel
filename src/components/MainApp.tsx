@@ -1,14 +1,25 @@
 import { useState } from 'react';
 import {
+  EuiButton,
   EuiFlyout,
   EuiFlyoutBody,
   EuiFlyoutHeader,
   EuiHeader,
   EuiHeaderLogo,
+  EuiPage,
+  EuiPageBody,
   EuiPortal,
+  EuiProvider,
   EuiText,
   EuiTitle,
   useGeneratedHtmlId,
+  EuiPageHeader,
+  EuiPageHeaderSection,
+  EuiPageSidebar,
+  EuiPageSection,
+} from '@elastic/eui';
+import {
+
 } from '@elastic/eui';
 import { Link } from 'react-router-dom';
 
@@ -54,7 +65,7 @@ export const MainApp: React.FC<PropsType> = () => {
     </EuiPortal>
   );
 
- 
+
   /**
    * Sitewide search
    */
@@ -104,9 +115,44 @@ export const MainApp: React.FC<PropsType> = () => {
           }
         ]}
       />
-      <EuiHeader position="fixed"/>
+      <EuiHeader position="fixed" />
+      <EuiPage>
+        <EuiPageSidebar>SideBar nav</EuiPageSidebar>
+        <EuiPageBody component="div">
+          <EuiPageHeader>
+            <EuiPageHeaderSection>
+              <EuiTitle size="l">
+                <h1>Page title</h1>
+              </EuiTitle>
+            </EuiPageHeaderSection>
+            <EuiPageHeaderSection>Page abilities</EuiPageHeaderSection>
+          </EuiPageHeader>
+          <EuiPageSection>
+            <EuiPageHeader>
+              <EuiPageHeader >
+                <EuiTitle>
+                  <h2>Content title</h2>
+                </EuiTitle>
+              </EuiPageHeader >
+              <EuiPageHeader >
+                Content abilities
+              </EuiPageHeader >
+            </EuiPageHeader>
+            <EuiPageSection>Content body</EuiPageSection>
+          </EuiPageSection>
+        </EuiPageBody>
+        <EuiProvider colorMode="light">
+          <EuiText>
+            <h1>This is Heading One</h1>
+            <p>Hello man, i'm glad to seem you</p>
+          </EuiText>
+          <EuiButton>Кнопка</EuiButton>
+        </EuiProvider>
+      </EuiPage>
+
 
       {isAlertFlyoutVisible ? headerAlerts : null}
+      sdfasdf
     </>
   );
 };
