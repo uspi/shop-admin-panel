@@ -1,8 +1,10 @@
-# Getting Started with Create React App
+# Shop Admin Panel
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
+
+For everything to work, you must have [Node js (LTS)](https://nodejs.org/uk/) installed. 
 
 In the project directory, you can run:
 
