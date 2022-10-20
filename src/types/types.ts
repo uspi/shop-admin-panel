@@ -15,6 +15,10 @@ export type ProductType = {
 
 export type UnitsType = 'mm' | 'cm' | 'm'
 
+export type ColorModeType = 'dark' | 'default' | undefined
+
+
+
 // // photo (string)
 // export type ImagesType = {
 //     small: string | null,

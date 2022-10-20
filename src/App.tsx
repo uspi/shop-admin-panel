@@ -1,31 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import './App.css';
 import '@elastic/eui/dist/eui_theme_light.css';
 
 import { EuiButton, EuiProvider, EuiText } from '@elastic/eui';
-import { MainApp } from './components/MainApp';
 import { Page } from './components/Page';
+import { useDispatch } from 'react-redux';
+import { actions } from './redux/breadcrumbs-reducer';
+import { BrowserRouter } from 'react-router-dom';
 
 export const App: React.FC<PropsType> = () => {
-  const flag: boolean = false
+  //const dispatch = useDispatch()
+
+  // useEffect(() => {
+  //   dispatch(actions.setBreadcrumbs([{
+  //     text: 'Home', onClick: (e) => {
+  //     }
+  //   },
+  //   ]))
+  //   //{ text: 'Products' }]))
+  // }, [])
+
+
   return (
     <>
-      {flag ? (
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <EuiProvider colorMode="light">
-          <EuiText>
-            <h1>This is Heading One</h1>
-            <p>Hello man, i'm glad to seem you</p>
-          </EuiText>
-          <EuiButton>Кнопка</EuiButton>
-        </EuiProvider>) 
-        : 
-        (
-        <EuiProvider colorMode="light">
-          <Page/>
+          <Page />
         </EuiProvider>
-
-      )
-      }
+      </BrowserRouter>
     </>
   );
 }

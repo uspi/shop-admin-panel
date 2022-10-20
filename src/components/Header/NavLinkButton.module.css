@@ -1,0 +1,28 @@
+.navlinkbuttoncontainer:hover {
+    text-decoration: underline;
+}
+
+.navlinkbuttoncontainer {
+    height: 100%;
+    width: 100%;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    font-weight: 500;
+
+}
+
+.navlinkbuttoncontainer:active {
+    background-color:rgb(0, 60, 102);
+    transition-timing-function: ease-in;
+    transition-duration: 150ms;
+}
+
+.navlinkbuttonwrapper {
+    height: 100%;
+    width: 100%;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}

@@ -6,11 +6,13 @@ import {
     createStore,
   } from 'redux'
   import thunkMiddleware, { ThunkAction } from 'redux-thunk'
+import { breadcrumbsReducer } from './breadcrumbs-reducer'
   
   import { productsReducer } from './products-reducer'
   
   let rootReducer = combineReducers({
     products: productsReducer,
+    breadcrumbs: breadcrumbsReducer
     //   sidebar: sidebarReducer,
     //   auth: authReducer,
     //   form: formReducer,

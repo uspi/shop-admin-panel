@@ -1,0 +1,17 @@
+.euiOverlayMask {
+    z-index: 100;
+    inset-block-start: 48px;
+    position: fixed;
+    inset-block: 0px;
+    position: fixed;
+    inset-block: 0px;
+    inset-inline: 0px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding-block-end: 10vh;
+    animation: 150ms ease-in 0s 1 normal none running animation-ox4vyo;
+    background: rgba(0, 0, 0, 0.5);
+}

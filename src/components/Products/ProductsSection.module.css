@@ -1,0 +1,4 @@
+.outlinenon:focus {
+    outline: none !important;
+    background-color: red;
+}

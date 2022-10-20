@@ -1,0 +1,12 @@
+.textField:focus  {
+    /* background-color: #fff !important; */
+    /* background-image: linear-gradient(to top, #07C, #07C 2px, transparent 2px, transparent 100%);
+    background-size: 100% 100% ; */
+    outline: none !important;
+    /* box-shadow: inset 0 0 0 1px rgb(17 43 134 / 10%); */
+
+    /*transition-property: box-shadow, background-image, background-size, background-color;  */
+    /* transition-duration: 150ms;
+    transition-timing-function: ease-in;
+    transition-delay: 0s; */
+}
