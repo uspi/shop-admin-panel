@@ -1,12 +1,11 @@
 import { PostgrestResponse } from '@supabase/supabase-js'
-import axios, { AxiosResponse } from 'axios'
 import { ProductType } from '../types/types'
 import { dbInstanse } from './api'
 
-export const productsAPI = {
-    async getProductsList() {
+export const purchasesAPI = {
+    async getPurchasesList() {
         // Make a request
-        const { data, error }: PostgrestResponse<ProductType>  = await dbInstanse.from('Products').select('*')
+        const { data, error }: PostgrestResponse<ProductType>  = await dbInstanse.from('Purchases').select('*')
         console.log(data)
         //console.log(error)
         return data
@@ -18,7 +17,8 @@ export const productsAPI = {
         // }
     },
 
-    async setProduct(productId: string, newProduct: ProductType){
+    async setPurchase(productId: string, newProduct: ProductType){
+        // TODO
         const { data, error }: PostgrestResponse<ProductType>  = await dbInstanse.from('Products').update(newProduct)
     }
 }

@@ -1,19 +1,39 @@
-import { EuiPage, EuiPageSidebar, EuiFormControlLayout, EuiSearchBar, EuiHorizontalRule, EuiFacetGroup, EuiPageBody, EuiPageHeader, EuiPageHeaderSection, EuiTitle, EuiButtonEmpty, EuiFlexGrid, EuiPageSection, EuiPagination } from '@elastic/eui';
+import { EuiPage, EuiPageSidebar, EuiFormControlLayout, EuiSearchBar, EuiHorizontalRule, EuiFacetGroup, EuiPageBody, EuiPageHeader, EuiPageHeaderSection, EuiTitle, EuiButtonEmpty, EuiFlexGrid, EuiPageSection, EuiPagination, EuiFlexGroup, EuiFlexItem, EuiSpacer } from '@elastic/eui';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { actions } from '../redux/breadcrumbs-reducer';
-import { ProductCard } from './Products/ProductCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../../redux/breadcrumbs-reducer';
+import { getPurchases } from '../../redux/purchases-reducer';
+import { AppStateType } from '../../redux/store';
+import { ProductCard } from '../Products/ProductCard';
+import { PurchaseCard } from './PurchaseCard';
 
 export const Purchases: React.FC<{}> = React.memo((props) => {
     const [purchasesCount, setPurchasesCount] = useState<number | undefined>(0)
     const [searchResetIsLoading, setSearchResetStatus] = useState(false)
 
     const dispatch = useDispatch()
-    
-    
+
+
     // useEffect(() => {
     //     dispatch(actions.setTopBreadCrumb({ text: 'Purchases' }, 0))
     // }, [])
+
+    const purchasesList = useSelector((state: AppStateType) => state.purchases.purchases)
+    let isProductsRequested = false;
+
+    useEffect(() => {
+        if (!isProductsRequested && !purchasesList) {
+            dispatch(getPurchases())
+            isProductsRequested = true;
+            //setProductsRequestedStatus(true)
+        }
+    }, []);
+
+
+    // set to page title count of results
+    useEffect(() => {
+        setPurchasesCount(purchasesList?.length)
+    }, [purchasesList])
 
     return (
         <>
@@ -46,38 +66,17 @@ export const Purchases: React.FC<{}> = React.memo((props) => {
                         </EuiPageHeaderSection>
                     </EuiPageHeader>
 
-                    {/* <EuiFlexGroup  justifyContent='spaceAround' gutterSize='l'>
-              
-              <ProductCard title='Product 1' price='100'/>
-              <ProductCard title='Product 2' price='50'/>
-              <EuiPagination />
-            </EuiFlexGroup> */}
-
-
-                    <EuiFlexGrid columns={3} gutterSize='l'>
-
-                        {/* <ProductCard title='Product 1' price='100' />
-            <ProductCard title='Product 2' price='50' /> */}
-                        {/* {
-                            productsList?.map(p => (
-                                <ProductCard
-                                    key={p.id}
-                                    name={p.name}
-                                    price={p.price}
-                                    price_currency={p.price_currency}
-                                    image={p.image}
-                                    quantity={p.quantity}
-                                    description={p.description}
-                                    units={p.units}
-                                    created_at={p.created_at}
-                                    length={p.length}
-                                    width={p.width}
-                                    height={p.height}
-                                />
+                    <EuiSpacer />
+                    <EuiFlexGroup justifyContent='spaceAround' gutterSize='l' direction='column'>
+                        {
+                            purchasesList?.map(p => (
+                                <EuiFlexItem>
+                                    <PurchaseCard {...p} />
+                                </EuiFlexItem>
                             ))
-                        } */}
+                        }
+                    </EuiFlexGroup>
 
-                    </EuiFlexGrid>
                     <EuiPageSection alignment='center'>
                         <EuiPagination />
                     </EuiPageSection>

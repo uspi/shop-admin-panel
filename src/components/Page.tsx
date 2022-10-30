@@ -2,10 +2,12 @@ import React from 'react';
 import { HeaderSection } from './Header/HeaderSection';
 import { ProductsSection } from './Products/ProductsSection';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Purchases } from './Purchases';
+import { Purchases } from './Purchases/Purchases';
 import { ProductEditSection } from './Products/ProductEditSection';
 import { ProductType } from '../types/types';
 import { ProductsStatistic } from './Products/ProductsStatistic';
+import { EuiSpacer } from '@elastic/eui';
+import { Units } from './Units/Units';
 
 export const Page: React.FC<{}> = React.memo((props) => {
   //const { colorMode } = useEuiTheme();
@@ -34,6 +36,9 @@ export const Page: React.FC<{}> = React.memo((props) => {
   return (
     <>
       <HeaderSection />
+      <EuiSpacer size='xl'/>
+      <EuiSpacer size='xl'/>
+      <EuiSpacer size='xl'/>
       <Routes>
         <Route path='/products' element={
           <React.Suspense fallback={<>Loading...</>}>
@@ -72,6 +77,7 @@ export const Page: React.FC<{}> = React.memo((props) => {
             <ProductsStatistic />
           </React.Suspense>
         } />
+        <Route path='/units' element={<Units/>} />
       </Routes>
     </>
   )

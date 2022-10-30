@@ -34,7 +34,7 @@ export const HeaderSection: React.FC<PropsType> = React.memo((props) => {
     return (
         <>
             {/* UP HEADER */}
-            < EuiHeader theme='dark' >
+            < EuiHeader theme='dark' position='fixed'>
 
 
                 {/* left */}
@@ -70,7 +70,7 @@ export const HeaderSection: React.FC<PropsType> = React.memo((props) => {
             </EuiHeader >
 
             {/* BOTTOM HEADER */}
-            < EuiHeader theme={colorMode.toLowerCase() as ColorModeType} >
+            < EuiHeader theme={colorMode.toLowerCase() as ColorModeType} position='fixed'>
                 {/* {breadcrumbArray} */}
                 {breadcrumbArrayProp && 
                 <EuiHeaderBreadcrumbs breadcrumbs={breadcrumbArrayProp}/>}

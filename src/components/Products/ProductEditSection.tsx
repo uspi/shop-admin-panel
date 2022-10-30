@@ -1,5 +1,5 @@
 import { EuiPage, EuiPageSidebar, EuiFormControlLayout, EuiSearchBar, EuiHorizontalRule, EuiFacetGroup, EuiPageBody, EuiPageHeader, EuiPageHeaderSection, EuiTitle, EuiButtonEmpty, EuiFlexGrid, EuiPageSection, EuiPagination, EuiFlyout, EuiFlyoutHeader, EuiForm, EuiFormRow, EuiFormLabel, EuiFormHelpText, EuiFieldText, EuiSpacer, EuiText, copyToClipboard, EuiToolTip, EuiButtonIcon, EuiPanel, EuiFlexGroup, EuiFlexItem, EuiCommentEvent, EuiCopy, EuiButton, EuiFieldNumber } from '@elastic/eui'
-import { ChangeEvent, ChangeEventHandler, Ref, RefObject, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, ChangeEventHandler, MouseEventHandler, Ref, RefObject, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getProducts } from '../../redux/products-reducer';
@@ -22,6 +22,8 @@ export const ProductEditSection: React.FC<PropsType & {}> = (props) => {
     const currentProduct: ProductType | undefined = useSelector(
         (state: AppStateType) =>
             state.products.products?.filter(p => p.id === id)[0])
+
+    const [formHasChanges, setFormHasChanges] = useState(true)
 
     const [productName, setProductName] = useState(currentProduct?.name);
     const [price, setPrice] = useState(currentProduct?.price)
@@ -73,7 +75,9 @@ export const ProductEditSection: React.FC<PropsType & {}> = (props) => {
         setTextCopied(false);
     };
 
-
+    const onSaveButtonClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
+        console.log('save')
+    }
 
     return (
         <EuiPage>
@@ -104,6 +108,7 @@ export const ProductEditSection: React.FC<PropsType & {}> = (props) => {
 
 
                 <EuiForm>
+
                     <EuiFormRow >
                         <EuiPanel
                             paddingSize="none"
@@ -151,6 +156,21 @@ export const ProductEditSection: React.FC<PropsType & {}> = (props) => {
 
                         </EuiPanel>
                     </EuiFormRow>
+                    
+                    <EuiSpacer />
+                    
+                    <EuiFormRow>
+                        <EuiFlexGroup>
+                            <EuiFlexItem>
+                                <EuiButton  fill isDisabled={!formHasChanges} onClick={onSaveButtonClick}>
+                                    Save
+                                </EuiButton>
+                            </EuiFlexItem>
+
+                        </EuiFlexGroup>
+                    </EuiFormRow>
+
+
                     <EuiSpacer size='l' />
                     <EuiFormRow label='Name' helpText='Click and type'>
                         <EuiFieldText
@@ -223,6 +243,7 @@ export const ProductEditSection: React.FC<PropsType & {}> = (props) => {
                             value={height}
                         />
                     </EuiFormRow>
+
                 </EuiForm>
 
 

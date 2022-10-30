@@ -26,7 +26,7 @@ export const ProductCard: React.FC<PropsType> = (props) => {
                     image={
                         <div>
                             <img
-                                src="https://source.unsplash.com/400x200/?Nature"
+                                src={props.image}
                                 alt="Nature"
                             />
                         </div>

@@ -9,8 +9,10 @@ import {
 import { breadcrumbsReducer } from './breadcrumbs-reducer'
   
   import { productsReducer } from './products-reducer'
+import { purchasesReducer } from './purchases-reducer'
   
   let rootReducer = combineReducers({
+    purchases: purchasesReducer,
     products: productsReducer,
     breadcrumbs: breadcrumbsReducer
     //   sidebar: sidebarReducer,

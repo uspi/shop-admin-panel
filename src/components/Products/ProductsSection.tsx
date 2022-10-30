@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { getProducts } from '../../redux/products-reducer';
 import { AppStateType } from '../../redux/store';
-import { EditFlyout } from './EditFlyout';
 import { ProductCard } from './ProductCard';
 import { ProductEditSection } from './ProductEditSection';
 import style from './ProductsSection.module.css'
@@ -32,6 +31,8 @@ export const ProductsSection: React.FC<{}> = React.memo((props) => {
     useEffect(() => {
         setProductsCount(productsList?.length)
     }, [productsList])
+
+    
     return (
         <>
             <EuiPage>
