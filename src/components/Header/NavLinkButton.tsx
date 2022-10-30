@@ -47,7 +47,7 @@ export const NavLinkButton: React.FC<PropsType & {
                     <NavLink
 
                         to={props.to}
-                        className={style.navlinkbuttoncontainer}
+                        className={style.linkButton}
                         style={
                             ({ isActive }) =>
                             ({

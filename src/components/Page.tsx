@@ -8,6 +8,7 @@ import { ProductType } from '../types/types';
 import { ProductsStatistic } from './Products/ProductsStatistic';
 import { EuiSpacer } from '@elastic/eui';
 import { Units } from './Units/Units';
+import { PurchaseEdit } from './Purchases/PurchaseNew';
 
 export const Page: React.FC<{}> = React.memo((props) => {
   //const { colorMode } = useEuiTheme();
@@ -70,6 +71,7 @@ export const Page: React.FC<{}> = React.memo((props) => {
             <Purchases />
           </React.Suspense>
         } />
+        <Route path='purchases/:id' element={<PurchaseEdit/>}/>
         <Route path='/home' element={<Navigate replace to="/products" />} />
         <Route path='/' element={<Navigate replace to="/products" />} />
         <Route path='/statistic' element={

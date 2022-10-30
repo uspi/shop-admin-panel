@@ -27,8 +27,11 @@ export type PurchaseType = {
 
 export type UnitsType = 'mm' | 'cm' | 'm'
 export type PurchaseStatus = 'waiting' | 'processing' | 'delivery in progress' | 'delivered' | 'problem' | 'done'
-
 export type ColorModeType = 'dark' | 'default' | undefined
+
+export const UnitsTypeList = ['mm', 'cm', 'm']
+export const PurchaseStatusList = [
+    'waiting', 'processing', 'delivery in progress', 'delivered', 'problem', 'done']
 
 
 

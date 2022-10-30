@@ -19,3 +19,7 @@
   font-style: oblique 0deg 10deg;
   src: url("./assets/Inter-web/Inter.var.woff2") format("woff2");
 }
+
+.ui-select-dropdown.select2-drop-active {
+  opacity: 1 !important;
+}

@@ -1,7 +1,13 @@
-import { EuiBadge, EuiBetaBadge, EuiButtonIcon, EuiCard, EuiFlexGroup, EuiFlexItem, EuiSpacer, EuiSplitPanel, EuiText } from '@elastic/eui'
+import { EuiBadge, EuiBetaBadge, EuiButtonIcon, EuiCard, EuiFlexGroup, EuiFlexItem, EuiHealth, EuiPopover, EuiSpacer, EuiSplitPanel, EuiSuperSelect, EuiText } from '@elastic/eui'
+import { MouseEventHandler, useState } from 'react';
 import { PurchaseType } from '../../types/types'
+import { css } from '@emotion/react'
+import { useDispatch } from 'react-redux';
+import { deletePurchase, updatePurchase } from '../../redux/purchases-reducer';
 
 export const PurchaseCard: React.FC<{} & PurchaseType> = (props) => {
+
+    const dispatch = useDispatch()
 
     const creationDate: Date = new Date(Date.parse(props.created_at));
     const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -9,6 +15,59 @@ export const PurchaseCard: React.FC<{} & PurchaseType> = (props) => {
     ];
 
     const totalPrice: number = Number.parseInt(props.product_price) * Number.parseInt(props.quantity)
+
+    const statusSelectOptions = [
+        {
+            value: 'waiting',
+            inputDisplay: (
+                <EuiHealth color="subdued" style={{ lineHeight: 'inherit' }}>
+                    Waiting
+                </EuiHealth>
+            ),
+        },
+        {
+            value: 'delivery in progress',
+            inputDisplay: (
+                <EuiHealth color="primary" style={{ lineHeight: 'inherit' }}>
+                    Delivery in progress
+                </EuiHealth>
+            ),
+        },
+        {
+            value: 'delivered',
+            inputDisplay: (
+                <EuiHealth color="success" style={{ lineHeight: 'inherit' }}>
+                    Delivered
+                </EuiHealth>
+            ),
+        },
+        {
+            value: 'problem',
+            inputDisplay: (
+                <EuiHealth color="danger" style={{ lineHeight: 'inherit' }}>
+                    Problem
+                </EuiHealth>
+            ),
+        },
+        {
+            value: 'done',
+            inputDisplay: (
+                <EuiHealth color="#000000" style={{ lineHeight: 'inherit' }}>
+                    Done
+                </EuiHealth>
+            ),
+        },
+    ];
+    const [statusSelectValue, setStatusSelectValue] = useState(props.purchase_status);
+
+    const onStatusChange = (value: string) => {
+        setStatusSelectValue(value);
+        dispatch(updatePurchase(props.id, { ...props, purchase_status: value }, true))
+    };
+
+    const onDeletePurchaseButtonClick = (value: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        dispatch(deletePurchase(props.id))
+    }
     return (
         // <EuiCard 
         //     style={{ minWidth: 240 }}
@@ -57,33 +116,27 @@ export const PurchaseCard: React.FC<{} & PurchaseType> = (props) => {
 
                 <EuiSplitPanel.Inner color="subdued" grow={false}>
                     <EuiFlexGroup>
+
                         <EuiFlexItem>
-                            <EuiButtonIcon
-                                display="base"
-                                iconType="arrowRight"
-                                iconSize="m"
-                                size="s"
-                                aria-label="Next"
+                            <EuiSuperSelect
+                                style={{ minWidth: 200 }}
+                                options={statusSelectOptions}
+                                valueOfSelected={statusSelectValue}
+                                onChange={(value) => onStatusChange(value)}
                             />
                         </EuiFlexItem>
                         <EuiFlexItem>
                             <EuiButtonIcon
-                                display="base"
-                                iconType="arrowRight"
-                                iconSize="m"
-                                size="s"
+                                color='danger'
+                                display="empty"
+                                iconType="trash"
+                                iconSize="original"
+                                size="m"
                                 aria-label="Next"
+                                onClick={onDeletePurchaseButtonClick}
                             />
                         </EuiFlexItem>
-                        <EuiFlexItem>
-                            <EuiButtonIcon
-                                display="base"
-                                iconType="arrowRight"
-                                iconSize="m"
-                                size="s"
-                                aria-label="Next"
-                            />
-                        </EuiFlexItem>
+
                     </EuiFlexGroup>
                 </EuiSplitPanel.Inner>
 

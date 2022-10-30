@@ -1,11 +1,15 @@
-import { EuiPage, EuiPageSidebar, EuiFormControlLayout, EuiSearchBar, EuiHorizontalRule, EuiFacetGroup, EuiPageBody, EuiPageHeader, EuiPageHeaderSection, EuiTitle, EuiButtonEmpty, EuiFlexGrid, EuiPageSection, EuiPagination, EuiFlexGroup, EuiFlexItem, EuiSpacer } from '@elastic/eui';
-import React, { useEffect, useState } from 'react';
+import { EuiPage, EuiPageSidebar, EuiFormControlLayout, EuiSearchBar, EuiHorizontalRule, EuiFacetGroup, EuiPageBody, EuiPageHeader, EuiPageHeaderSection, EuiTitle, EuiButtonEmpty, EuiFlexGrid, EuiPageSection, EuiPagination, EuiFlexGroup, EuiFlexItem, EuiSpacer, EuiButton } from '@elastic/eui';
+import React, { MouseEventHandler, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { purchasesAPI } from '../../api/purchases-api';
+import { purchasesSeedArray } from '../../assets/purchasesSeed';
 import { actions } from '../../redux/breadcrumbs-reducer';
-import { getPurchases } from '../../redux/purchases-reducer';
+import { addPurchase, addPurchases, getPurchases, setPurchases } from '../../redux/purchases-reducer';
 import { AppStateType } from '../../redux/store';
+import { LinkButton } from '../common/LinkButton';
 import { ProductCard } from '../Products/ProductCard';
 import { PurchaseCard } from './PurchaseCard';
+import { v4 as uuid } from 'uuid'
 
 export const Purchases: React.FC<{}> = React.memo((props) => {
     const [purchasesCount, setPurchasesCount] = useState<number | undefined>(0)
@@ -13,12 +17,8 @@ export const Purchases: React.FC<{}> = React.memo((props) => {
 
     const dispatch = useDispatch()
 
-
-    // useEffect(() => {
-    //     dispatch(actions.setTopBreadCrumb({ text: 'Purchases' }, 0))
-    // }, [])
-
     const purchasesList = useSelector((state: AppStateType) => state.purchases.purchases)
+
     let isProductsRequested = false;
 
     useEffect(() => {
@@ -34,6 +34,11 @@ export const Purchases: React.FC<{}> = React.memo((props) => {
     useEffect(() => {
         setPurchasesCount(purchasesList?.length)
     }, [purchasesList])
+
+
+    const onSeedButtonCilck: MouseEventHandler<HTMLAnchorElement> = (e) => {
+        dispatch(setPurchases(purchasesSeedArray, true))
+    }
 
     return (
         <>
@@ -57,6 +62,22 @@ export const Purchases: React.FC<{}> = React.memo((props) => {
                                 <p>{purchasesCount} Results</p>
                             </EuiTitle>
                         </EuiPageHeaderSection>
+
+                        <EuiPageHeaderSection>
+                            <EuiFlexGroup>
+                                <EuiFlexItem style={{alignItems: 'center'}}>
+                                    {/* <EuiButton color='primary' onClick={onSeedButtonCilck}>New</EuiButton> */}
+                                    <LinkButton to={'new'} label='New'/>
+                                </EuiFlexItem>
+                                <EuiFlexItem>
+                                   
+                                    <EuiButtonEmpty onClick={onSeedButtonCilck}>Seed</EuiButtonEmpty>
+                                </EuiFlexItem>
+                            </EuiFlexGroup>
+
+                        </EuiPageHeaderSection>
+
+
                         <EuiPageHeaderSection>
                             <EuiButtonEmpty
                                 onClick={() => setSearchResetStatus(!searchResetIsLoading)}
@@ -64,6 +85,7 @@ export const Purchases: React.FC<{}> = React.memo((props) => {
                                 Reset Search
                             </EuiButtonEmpty>
                         </EuiPageHeaderSection>
+
                     </EuiPageHeader>
 
                     <EuiSpacer />
@@ -71,7 +93,7 @@ export const Purchases: React.FC<{}> = React.memo((props) => {
                         {
                             purchasesList?.map(p => (
                                 <EuiFlexItem>
-                                    <PurchaseCard {...p} />
+                                    <PurchaseCard key={p.id} {...p} />
                                 </EuiFlexItem>
                             ))
                         }
@@ -82,7 +104,6 @@ export const Purchases: React.FC<{}> = React.memo((props) => {
                     </EuiPageSection>
 
                 </EuiPageBody>
-
             </EuiPage>
         </>
     )

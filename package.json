@@ -3,10 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@elastic/apm-rum": "^5.12.0",
+    "@elastic/apm-rum-react": "^1.4.2",
     "@elastic/datemath": "^5.0.3",
     "@elastic/eui": "^67.0.0",
+    "@elastic/react-search-ui": "^1.18.2",
+    "@elastic/react-search-ui-views": "^1.18.2",
+    "@elastic/search-ui": "^1.18.2",
+    "@elastic/search-ui-app-search-connector": "^1.18.2",
+    "@elastic/search-ui-elasticsearch-connector": "^1.18.2",
+    "@elastic/search-ui-site-search-connector": "^1.18.2",
+    "@elastic/search-ui-workplace-search-connector": "^1.18.2",
     "@emotion/cache": "^11.10.3",
-    "@emotion/react": "^11.10.4",
+    "@emotion/react": "^11.10.5",
     "@supabase/supabase-js": "^1.35.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -27,6 +36,7 @@
     "redux": "^4.1.0",
     "redux-thunk": "^2.3.0",
     "typescript": "^4.8.3",
+    "uuidv4": "^6.2.13",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
