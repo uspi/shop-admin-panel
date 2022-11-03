@@ -1,9 +1,11 @@
-import { EuiPage, EuiPageSidebar, EuiFormControlLayout, EuiSearchBar, EuiHorizontalRule, EuiFacetGroup, EuiPageBody, EuiPageHeader, EuiPageHeaderSection, EuiTitle, EuiButtonEmpty, EuiFlexGrid, EuiPageSection, EuiPagination, EuiOverlayMask } from '@elastic/eui';
-import React, { useEffect, useState } from 'react';
+import { EuiPage, EuiPageSidebar, EuiFormControlLayout, EuiSearchBar, EuiHorizontalRule, EuiFacetGroup, EuiPageBody, EuiPageHeader, EuiPageHeaderSection, EuiTitle, EuiButtonEmpty, EuiFlexGrid, EuiPageSection, EuiPagination, EuiOverlayMask, EuiSpacer, EuiFlexGroup, EuiFlexItem } from '@elastic/eui';
+import React, { MouseEventHandler, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import { getProducts } from '../../redux/products-reducer';
+import { productsSeedArray } from '../../assets/productsSeed';
+import { getProducts, setProducts } from '../../redux/products-reducer';
 import { AppStateType } from '../../redux/store';
+import { LinkButton } from '../common/LinkButton';
 import { ProductCard } from './ProductCard';
 import { ProductEditSection } from './ProductEditSection';
 import style from './ProductsSection.module.css'
@@ -19,6 +21,9 @@ export const ProductsSection: React.FC<{}> = React.memo((props) => {
     let isProductsRequested = false;
 
     useEffect(() => {
+        // scroll to the top of the page
+        window.scrollTo(0, 0)
+
         if (!isProductsRequested && !productsList) {
             dispatch(getProducts())
             isProductsRequested = true;
@@ -31,6 +36,10 @@ export const ProductsSection: React.FC<{}> = React.memo((props) => {
     useEffect(() => {
         setProductsCount(productsList?.length)
     }, [productsList])
+
+    const onSeedButtonCilck: MouseEventHandler<HTMLAnchorElement> = (e) => {
+        dispatch(setProducts(productsSeedArray, true))
+    }
 
     
     return (
@@ -57,6 +66,18 @@ export const ProductsSection: React.FC<{}> = React.memo((props) => {
                             </EuiTitle>
                         </EuiPageHeaderSection>
                         <EuiPageHeaderSection>
+                            <EuiFlexGroup>
+                                <EuiFlexItem style={{alignItems: 'center'}}>
+                                    <LinkButton to={'new'} label='New'/>
+                                </EuiFlexItem>
+                                <EuiFlexItem>
+                                   
+                                    <EuiButtonEmpty onClick={onSeedButtonCilck}>Seed</EuiButtonEmpty>
+                                </EuiFlexItem>
+                            </EuiFlexGroup>
+
+                        </EuiPageHeaderSection>
+                        <EuiPageHeaderSection>
                             <EuiButtonEmpty
                                 onClick={() => setSearchResetStatus(!searchResetIsLoading)}
                                 isLoading={searchResetIsLoading}>
@@ -65,20 +86,8 @@ export const ProductsSection: React.FC<{}> = React.memo((props) => {
                         </EuiPageHeaderSection>
                     </EuiPageHeader>
 
-                    {/* <EuiFlexGroup  justifyContent='spaceAround' gutterSize='l'>
-              
-              <ProductCard title='Product 1' price='100'/>
-              <ProductCard title='Product 2' price='50'/>
-              <EuiPagination />
-            </EuiFlexGroup> */}
-
-
-
-
-                    <EuiFlexGrid columns={3} gutterSize='l'>
-
-                        {/* <ProductCard title='Product 1' price='100' />
-<ProductCard title='Product 2' price='50' /> */}
+                    <EuiSpacer />
+                    <EuiFlexGrid columns={4} gutterSize='l'>
                         {
                             productsList?.map(p => (
                                 <ProductCard
@@ -86,19 +95,12 @@ export const ProductsSection: React.FC<{}> = React.memo((props) => {
                                 />
                             ))
                         }
-
                     </EuiFlexGrid>
                     <EuiPageSection alignment='center'>
                         <EuiPagination />
                     </EuiPageSection>
-
-
-
-
                 </EuiPageBody>
-
             </EuiPage>
-            {/* <EditFlyout /> */}
         </>
     )
 })

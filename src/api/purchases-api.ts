@@ -1,6 +1,6 @@
 import { PostgrestResponse } from '@supabase/supabase-js'
 import { v4 as uuid } from 'uuid'
-import { ProductType, PurchaseType } from '../types/types'
+import { PurchaseType } from '../types/types'
 import { dbInstanse } from './api'
 
 export const purchasesAPI = {
@@ -78,8 +78,43 @@ export const purchasesAPI = {
         purchases: PurchaseType[],
         isSetCurrentTime: boolean = false
     ) {
-        localStorage.clear()
-        this.addPurchases(purchases, isSetCurrentTime)
+        // localStorage.clear()
+        // this.addPurchases(purchases, isSetCurrentTime)
+
+        purchases.forEach((purchase, index) => {
+            // get id
+            const newId = uuid()
+
+            // current time
+            const time = new Date(Date.now()).toUTCString()
+
+            // ignoring old data
+            if (index === 0) {
+                isSetCurrentTime && localStorage.setItem(
+                    'purchases',
+                    JSON.stringify([{ ...purchase, id: newId, created_at: time }])
+                )
+                isSetCurrentTime || localStorage.setItem(
+                    'purchases', JSON.stringify([{ ...purchase, id: newId }])
+                )
+
+                return
+            }
+
+            // values before
+            const currentpurchasesStr = localStorage.getItem('purchases')
+            if (currentpurchasesStr === null) return
+            const currentpurchasesList: PurchaseType[] = JSON.parse(currentpurchasesStr) as PurchaseType[]
+            
+            isSetCurrentTime && localStorage.setItem(
+                'purchases',
+                JSON.stringify([...currentpurchasesList, { ...purchase, id: newId, created_at: time }])
+            )
+            isSetCurrentTime || localStorage.setItem(
+                'purchases',
+                JSON.stringify([...currentpurchasesList, { ...purchase, id: newId }])
+            )
+        });
     },
 
     // old data + purchase

@@ -35,3 +35,4 @@ export const purchasesSeedArray: PurchaseType[] = [
         "purchase_status": "waiting"
     },
 ]
+

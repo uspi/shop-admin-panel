@@ -87,7 +87,7 @@ export const PurchaseCard: React.FC<{} & PurchaseType> = (props) => {
                     <EuiFlexGroup direction='column' wrap responsive={false} gutterSize="xs">
                         <EuiFlexItem grow={false}><EuiFlexGroup wrap responsive={false} gutterSize="xs">
                             <EuiBetaBadge
-                                label={totalPrice.toString()}
+                                label={totalPrice.toString() + " " + props.price_currency.toUpperCase()}
                                 color={"hollow"}
                             />
                             <EuiFlexItem grow={false}>

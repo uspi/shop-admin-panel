@@ -22,6 +22,9 @@ export const Purchases: React.FC<{}> = React.memo((props) => {
     let isProductsRequested = false;
 
     useEffect(() => {
+        // scroll to the top of the page
+        window.scrollTo(0, 0)
+        
         if (!isProductsRequested && !purchasesList) {
             dispatch(getPurchases())
             isProductsRequested = true;
@@ -66,7 +69,6 @@ export const Purchases: React.FC<{}> = React.memo((props) => {
                         <EuiPageHeaderSection>
                             <EuiFlexGroup>
                                 <EuiFlexItem style={{alignItems: 'center'}}>
-                                    {/* <EuiButton color='primary' onClick={onSeedButtonCilck}>New</EuiButton> */}
                                     <LinkButton to={'new'} label='New'/>
                                 </EuiFlexItem>
                                 <EuiFlexItem>

@@ -1,7 +1,10 @@
-import { EuiButton, EuiCard, EuiFlexGroup, EuiFlexItem, EuiHeaderSection, EuiHeaderSectionItem, EuiIcon, EuiSpacer, EuiText } from '@elastic/eui'
+import { EuiButton, EuiButtonIcon, EuiCard, EuiFlexGroup, EuiFlexItem, EuiHeaderSection, EuiHeaderSectionItem, EuiIcon, EuiImage, EuiSpacer, EuiText } from '@elastic/eui'
 import { ReactElement, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { deleteProduct } from '../../redux/products-reducer'
 import { ProductType, UnitsType } from '../../types/types'
+import { LinkButton } from '../common/LinkButton'
 
 export const ProductCard: React.FC<PropsType> = (props) => {
 
@@ -15,21 +18,42 @@ export const ProductCard: React.FC<PropsType> = (props) => {
 
     // ]
 
+    const dispatch = useDispatch()
+
     const [isShowFlyout, setIsShowFlyout] = useState(false)
+
+    const onDeleteProductButtonClick = (value: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        dispatch(deleteProduct(props.id))
+        console.log(props.id + ' Delete')
+    }
 
     return (
         <>
             <EuiFlexItem >
                 <EuiCard
-                    style={{minWidth: 240}}
+                    style={{ minWidth: 240 }}
                     textAlign='left'
                     image={
-                        <div>
-                            <img
-                                src={props.image}
-                                alt="Nature"
-                            />
-                        </div>
+                        <EuiImage
+                            size="l"
+                            style={{maxHeight: 294}}
+                            //hasShadow
+                            // caption={
+                            //     <p>
+                            //         <em>Mastigias papua</em>, also known as spotted jelly
+                            //     </p>
+                            // }
+                            alt={props.name}
+                            src={props.image ? props.image : ""}
+                        />
+                    //     <div  style={{maxHeight: 294}}>
+                    //     <img
+                    //         src={props.image}
+                    //         alt="Nature"
+                           
+                    //     />
+                    // </div>
+
                     }
                     title={
                         <>
@@ -63,12 +87,23 @@ export const ProductCard: React.FC<PropsType> = (props) => {
 
 
                     }
-                    icon={<EuiIcon size="xxl" type="logoAppSearch" />}
+                    // icon={<EuiIcon size="xxl" type="logoAppSearch" />}
                     footer={
-                        <EuiFlexGroup justifyContent="flexEnd">
+                        <EuiFlexGroup justifyContent="spaceBetween">
                             <EuiFlexItem grow={false}>
-                                <Link to={ props.id}>Edit</Link>
+                                <LinkButton to={props.id} label='Edit' />
                                 {/* <EuiButton ><Link to={ props.id}>Edit</Link></EuiButton> */}
+                            </EuiFlexItem>
+                            <EuiFlexItem grow={false}>
+                                <EuiButtonIcon
+                                    color='danger'
+                                    display="empty"
+                                    iconType="trash"
+                                    iconSize="original"
+                                    size="m"
+                                    aria-label="Next"
+                                    onClick={onDeleteProductButtonClick}
+                                />
                             </EuiFlexItem>
                         </EuiFlexGroup>
                     }
@@ -81,7 +116,7 @@ export const ProductCard: React.FC<PropsType> = (props) => {
 }
 
 export type PropsType = {
-   
+
 } & ProductType
 
 export type KeyValueType = {
