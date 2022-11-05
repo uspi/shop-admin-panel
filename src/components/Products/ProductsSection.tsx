@@ -50,7 +50,7 @@ export const ProductsSection: React.FC<{}> = React.memo((props) => {
     const [searchValue, setSearchvalue] = useState('');
 
 
-    const [isFacetResult]
+    
 
 
     useEffect(() => {
