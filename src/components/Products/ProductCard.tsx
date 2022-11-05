@@ -1,28 +1,17 @@
-import { EuiButton, EuiButtonIcon, EuiCard, EuiFlexGroup, EuiFlexItem, EuiHeaderSection, EuiHeaderSectionItem, EuiIcon, EuiImage, EuiSpacer, EuiText } from '@elastic/eui'
-import { ReactElement, useState } from 'react'
+import {
+    EuiButtonIcon, EuiCard, EuiFlexGroup, EuiFlexItem, EuiHeaderSection, EuiHeaderSectionItem, EuiImage, EuiSpacer, EuiText
+} from '@elastic/eui'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { deleteProduct } from '../../redux/products-reducer'
-import { ProductType, UnitsType } from '../../types/types'
+import { ProductType } from '../../types/types'
 import { LinkButton } from '../common/LinkButton'
 
-export const ProductCard: React.FC<PropsType> = (props) => {
-
-    // const descriptionItemsSource: KeyValueType[] = [
-    //     { "Avaible quantity": <>{props.quantity}</> },
-    //     { "Description": <>{props.description}</> },
-    //     { 'Width': <>{props.width} {props.units}</> },
-    //     { 'Length': <>{props.length} {props.units}</> },
-    //     { 'Height': <>{props.height} {props.units}</> },
-
-
-    // ]
+export const ProductCard: React.FC<ProductType> = (props) => {
 
     const dispatch = useDispatch()
 
-    const [isShowFlyout, setIsShowFlyout] = useState(false)
-
-    const onDeleteProductButtonClick = (value: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const onDeleteProductButtonClick = (
+        value: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         dispatch(deleteProduct(props.id))
         console.log(props.id + ' Delete')
     }
@@ -36,24 +25,10 @@ export const ProductCard: React.FC<PropsType> = (props) => {
                     image={
                         <EuiImage
                             size="l"
-                            style={{maxHeight: 294}}
-                            //hasShadow
-                            // caption={
-                            //     <p>
-                            //         <em>Mastigias papua</em>, also known as spotted jelly
-                            //     </p>
-                            // }
+                            style={{ maxHeight: 294 }}
                             alt={props.name}
                             src={props.image ? props.image : ""}
                         />
-                    //     <div  style={{maxHeight: 294}}>
-                    //     <img
-                    //         src={props.image}
-                    //         alt="Nature"
-                           
-                    //     />
-                    // </div>
-
                     }
                     title={
                         <>
@@ -81,18 +56,12 @@ export const ProductCard: React.FC<PropsType> = (props) => {
                             <div><strong>Height</strong>: {props.height} {props.units}</div>
                             <EuiSpacer size='xs' />
                             <div>{props.description}</div>
-
-
                         </EuiText>
-
-
                     }
-                    // icon={<EuiIcon size="xxl" type="logoAppSearch" />}
                     footer={
                         <EuiFlexGroup justifyContent="spaceBetween">
                             <EuiFlexItem grow={false}>
                                 <LinkButton to={props.id} label='Edit' />
-                                {/* <EuiButton ><Link to={ props.id}>Edit</Link></EuiButton> */}
                             </EuiFlexItem>
                             <EuiFlexItem grow={false}>
                                 <EuiButtonIcon
@@ -114,15 +83,3 @@ export const ProductCard: React.FC<PropsType> = (props) => {
 
     )
 }
-
-export type PropsType = {
-
-} & ProductType
-
-export type KeyValueType = {
-    [key: string]: ReactElement
-}
-
-//  type InferActionsTypes<T> = T extends {
-//     [key: string]: (...args: any[]) => infer U
-//   }

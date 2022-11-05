@@ -14,12 +14,12 @@ import { getProducts } from '../../redux/products-reducer'
 export const PurchaseEdit: React.FC<{}> = (props) => {
     let { id } = useParams()
 
+    const dispatch = useDispatch()
     const isCreatingNew = id === 'new' ? true : false
     const [currentId, setCurrentId] = useState<string>()
 
     const [isTextCopied, setTextCopied] = useState(false);
     const [formHasChanges, setFormHasChanges] = useState(true)
-    const dispatch = useDispatch()
 
     const [productId, setProductId] = useState()
     const [customerName, setCustomerName] = useState<string>()

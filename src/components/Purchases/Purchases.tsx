@@ -46,16 +46,16 @@ export const Purchases: React.FC<{}> = React.memo((props) => {
     return (
         <>
             <EuiPage>
-                <EuiPageSidebar paddingSize='l'>
-                    <EuiFormControlLayout>
+                <EuiPageSidebar paddingSize='m'>
+                    {/* <EuiFormControlLayout>
                         <EuiSearchBar box={{
                             placeholder: 'Search...'
                         }} />
-                        {/* <SiteSearch/> */}
+                     
                     </EuiFormControlLayout>
 
                     <EuiHorizontalRule margin='m' />
-                    <EuiFacetGroup />
+                    <EuiFacetGroup /> */}
                 </EuiPageSidebar>
 
                 <EuiPageBody component='div' paddingSize='l'>
@@ -80,13 +80,13 @@ export const Purchases: React.FC<{}> = React.memo((props) => {
                         </EuiPageHeaderSection>
 
 
-                        <EuiPageHeaderSection>
+                        {/* <EuiPageHeaderSection>
                             <EuiButtonEmpty
                                 onClick={() => setSearchResetStatus(!searchResetIsLoading)}
                                 isLoading={searchResetIsLoading}>
                                 Reset Search
                             </EuiButtonEmpty>
-                        </EuiPageHeaderSection>
+                        </EuiPageHeaderSection> */}
 
                     </EuiPageHeader>
 
