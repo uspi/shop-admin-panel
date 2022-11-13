@@ -48,9 +48,15 @@ export const ProductsSection: React.FC<{}> = React.memo((props) => {
     const [productsSearchResult, setProductsSearchResult] = useState<ProductType[]>()
     const [isClearableSearch, setIsClearableSearch] = useState(true);
     const [searchValue, setSearchvalue] = useState('');
-
-
     
+    // FACETS
+    const [icon, setIcon] = useState(false);
+    const [disabled, setDisabled] = useState(false);
+    const [avatars, setAvatars] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [selectedOptionId, setSelectedOptionId] = useState(undefined);
+
+
 
 
     useEffect(() => {
@@ -75,6 +81,7 @@ export const ProductsSection: React.FC<{}> = React.memo((props) => {
         // set to page title count of results
         setProductsCount(productsList?.length)
 
+        // set price range 
         const productPrices = productsList?.map(p => parseInt(p.price.split(' ').join('')))
         if (productPrices) {
             setPriceRangeMinValue(Math.min(...productPrices))
@@ -138,22 +145,14 @@ export const ProductsSection: React.FC<{}> = React.memo((props) => {
             ])]
         }
 
-
         setProductsSearchResult(newProductsResult)
         setProductsCount(newProductsResult?.length)
-
-
-
-
     }, [searchValue, priceRangevalue])
 
-
+    // seed button
     const onSeedButtonCilck: MouseEventHandler<HTMLAnchorElement> = (e) => {
         dispatch(setProducts(productsSeedArray, true))
     }
-
-
-
 
     const searchOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchvalue(e.target.value);
@@ -166,12 +165,7 @@ export const ProductsSection: React.FC<{}> = React.memo((props) => {
 
 
 
-    // Facets
-    const [icon, setIcon] = useState(false);
-    const [disabled, setDisabled] = useState(false);
-    const [avatars, setAvatars] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [selectedOptionId, setSelectedOptionId] = useState(undefined);
+
 
     const facet0Clicked = (id: any) => {
         setIcon(false);
@@ -283,11 +277,12 @@ export const ProductsSection: React.FC<{}> = React.memo((props) => {
                     </EuiFormControlLayout>
                     <EuiSpacer size='m' />
                     <EuiPanel>
+                        {/* FACETS
                         <EuiFormRow>
                             <EuiFacetGroup style={{ maxWidth: 200 }}>
                                 {facets('Vertical')}
                             </EuiFacetGroup>
-                        </EuiFormRow>
+                        </EuiFormRow> */}
                         <EuiSpacer />
                         <EuiFormRow label='Price range'>
                             <>

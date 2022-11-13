@@ -9,17 +9,6 @@ import { actions } from './redux/breadcrumbs-reducer';
 import { BrowserRouter } from 'react-router-dom';
 
 export const App: React.FC<PropsType> = () => {
-  //const dispatch = useDispatch()
-
-  // useEffect(() => {
-  //   dispatch(actions.setBreadcrumbs([{
-  //     text: 'Home', onClick: (e) => {
-  //     }
-  //   },
-  //   ]))
-  //   //{ text: 'Products' }]))
-  // }, [])
-
 
   return (
     <>
